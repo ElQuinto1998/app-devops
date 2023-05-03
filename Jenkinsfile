@@ -39,10 +39,12 @@ pipeline {
     }
 
     stage('Deploying App to Kubernetes') {
-      app = docker.image('testacr.azurecr.io/demo:latest')            
-      withDockerRegistry([credentialsId: 'acr_credentials', url: 'https://testacr.azurecr.io']) {            
-        app.pull() 
-        sh "kubectl create -f ./deploy/deployment-service.yml"
+      steps {
+        app = docker.image(urlRegistry + dockerimagename + :latest)            
+        withDockerRegistry([credentialsId: 'acr_credentials', url: urlRegistry]) {            
+          app.pull() 
+          sh "kubectl create -f ./deploy/deployment-service.yml"
+        }
       }
     }
 
