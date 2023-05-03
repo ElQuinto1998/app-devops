@@ -12,7 +12,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git branch: 'main', url:'https://github.com/ElQuinto1998/app-devops.git'
+        git branch: 'main', url: urlRepo
       }
     }
 
