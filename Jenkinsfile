@@ -12,7 +12,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git branch: 'main', url: urlRepo
+        git branch: 'main', url: "${urlRepo}"
       }
     }
 
@@ -25,7 +25,7 @@ pipeline {
         script {
           //app = docker.build(dockerimagename)    
           sh "docker build ${dockerimagename}"            
-          withDockerRegistry([credentialsId: 'acr_credentials', url: urlRegistry]) {                                
+          withDockerRegistry([credentialsId: registryCredential, url: urlRegistry]) {                                
             ssh "docker push ${dockerimagename}:latest"     
           }
         }
