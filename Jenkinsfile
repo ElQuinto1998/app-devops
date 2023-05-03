@@ -40,10 +40,12 @@ pipeline {
 
     stage('Deploying App to Kubernetes') {
       steps {
-        app = docker.image(urlRegistry + dockerimagename + ':latest')            
-        withDockerRegistry([credentialsId: 'acr_credentials', url: urlRegistry]) {            
-          app.pull() 
-          sh "kubectl create -f ./deploy/deployment-service.yml"
+        script {
+          app = docker.image(urlRegistry + dockerimagename + ':latest')            
+          withDockerRegistry([credentialsId: 'acr_credentials', url: urlRegistry]) {            
+            app.pull() 
+            sh "kubectl create -f ./deploy/deployment-service.yml"
+          }
         }
       }
     }
