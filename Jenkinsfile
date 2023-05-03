@@ -16,23 +16,16 @@ pipeline {
       }
     }
 
-    stage('Build image') {
-      steps{
-        script {
-          dockerImage = docker.build -t dockerimagename .
-        }
-      }
-    }
-
-    stage('Pushing Image') {
+    stage('Build and Push image') {
       environment {
         registryCredential = 'acr-credentials'
         urlRegistry = 'urlRegistry'
       }
-      steps{
+      steps {
         script {
-          docker.withRegistry([ url: urlRegistry, credentialsId: registryCredential ]) {
-            dockerImage.push("latest")
+          app = docker.build(dockerimagename)                
+          withDockerRegistry([credentialsId: 'acr_credentials', url: urlRegistry]) {                                
+            app.push('latest')     
           }
         }
       }
