@@ -12,7 +12,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git = urlRepo
+        git urlRepo
       }
     }
 
