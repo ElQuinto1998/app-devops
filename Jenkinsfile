@@ -12,14 +12,14 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/ElQuinto1998/app-devops'
+        git 'https://github.com/ElQuinto1998/app-devops.git'
       }
     }
 
     stage('Build image') {
       steps{
         script {
-          dockerImage = docker.build dockerimagename
+          dockerImage = docker.build -t dockerimagename .
         }
       }
     }
