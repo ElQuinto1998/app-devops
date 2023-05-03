@@ -23,7 +23,7 @@ pipeline {
       steps {
         script {
           //app = docker.build(dockerimagename)    
-          sh "docker build ${dockerimagename}"            
+          sh "docker build -t ${dockerimagename} ."            
           withDockerRegistry([credentialsId: registryCredential, url: urlRegistry]) {                                
             ssh "docker push ${dockerimagename}:latest"     
           }
