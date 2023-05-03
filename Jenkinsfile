@@ -23,9 +23,10 @@ pipeline {
       }
       steps {
         script {
-          app = docker.build(dockerimagename)                
+          //app = docker.build(dockerimagename)    
+          sh "docker build ${dockerimagename}"            
           withDockerRegistry([credentialsId: 'acr_credentials', url: urlRegistry]) {                                
-            app.push('latest')     
+            ssh "docker push ${dockerimagename}:latest"     
           }
         }
       }
