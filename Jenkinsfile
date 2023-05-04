@@ -15,17 +15,10 @@ pipeline {
       }
     }
 
-    stage('Build and Push image') {
-      environment {
-        registryCredential = 'acr-credentials'
-      }
-      steps {
-        script {   
-          app = docker.build("myregistryrepo.azurecr.io/${dockerimagename}")           
-          withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://myregistryrepo.azurecr.io']) {                                
-            app.push('latest')  
-          }
-        }
+    stage('Build and Push image') {  
+      app = docker.build("myregistryrepo.azurecr.io/${dockerimagename}")           
+      withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://myregistryrepo.azurecr.io']) {                                
+        app.push('latest')  
       }
     }
 
