@@ -18,11 +18,9 @@ pipeline {
     stage('Build and Push image') {
       environment {
         registryCredential = 'acr-credentials'
-        urlRegistry = 'urlRegistry'
       }
       steps {
-        script {
-          //app = docker.build(dockerimagename)    
+        script {   
           sh "docker build -t ${dockerimagename} ."            
           withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://myregistryrepo.azurecr.io']) {                                
             ssh "docker push ${dockerimagename}:latest"     
@@ -35,7 +33,7 @@ pipeline {
       steps {
         script {
           app = docker.image("https://myregistryrepo.azurecr.io/${dockerimagename}:latest")            
-          withDockerRegistry([credentialsId: 'acr_credentials', url: 'https://myregistryrepo.azurecr.io']) {            
+          withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://myregistryrepo.azurecr.io']) {            
             app.pull() 
             sh "kubectl create -f ./deploy/deployment-service.yml"
           }
