@@ -21,9 +21,9 @@ pipeline {
       }
       steps {
         script {   
-          sh "docker build -t myregistryrepo.azurecr.io/${dockerimagename} ."            
+          app = docker.build("myregistryrepo.azurecr.io/${dockerimagename}")           
           withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://myregistryrepo.azurecr.io']) {                                
-            ssh "docker push ${dockerimagename}:latest"     
+            app.push('latest')  
           }
         }
       }
