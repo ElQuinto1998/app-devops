@@ -37,6 +37,7 @@ pipeline {
             sh 'chmod u+x ./kubectl'
             //sh './kubectl create -f ./deploy/deployment-service.yml'
             sh './kubectl version'
+            sh './kubectl get pods'
           }
         }
       }
