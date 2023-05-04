@@ -23,7 +23,7 @@ pipeline {
         script {   
           sh "docker build -t myregistryrepo.azurecr.io/${dockerimagename} ."            
           withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://myregistryrepo.azurecr.io']) {                                
-            ssh "docker push ${dockerimagename}:latest"     
+            sh "docker push ${dockerimagename}:latest"     
           }
         }
       }
