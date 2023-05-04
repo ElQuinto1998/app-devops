@@ -34,7 +34,8 @@ pipeline {
         script {
           app = docker.image("myregistryrepo.azurecr.io/${dockerimagename}:latest")            
           withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://myregistryrepo.azurecr.io']) {            
-            app.pull() 
+            app.pull()
+            sh "ls" 
             sh "kubectl create -f ./deploy/deployment-service.yml"
           }
         }
