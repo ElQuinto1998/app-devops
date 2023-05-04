@@ -29,7 +29,7 @@ pipeline {
       }
     }
 
-    /*stage('Deploying App to Kubernetes') {
+    stage('Deploying App to Kubernetes') {
       steps {
         script {
           app = docker.image("myregistryrepo.azurecr.io/${dockerimagename}:latest")            
@@ -39,7 +39,7 @@ pipeline {
           }
         }
       }
-    }*/
+    }
 
   }
 
