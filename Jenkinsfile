@@ -15,12 +15,15 @@ pipeline {
       }
     }
 
-    stage('Build and Push image') {  
+    stage('Build and Push image') {
+      environment {
+        registryCredential = 'acr-credentials'
+      }
       steps {
-        script {
-          app = docker.build("myregistryrepo.azurecr.io/${dockerimagename}")           
+        script {   
+          sh "docker build -t myregistryrepo.azurecr.io/${dockerimagename} ."            
           withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://myregistryrepo.azurecr.io']) {                                
-            app.push('latest')  
+            ssh "docker push ${dockerimagename}:latest"     
           }
         }
       }
