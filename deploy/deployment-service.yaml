@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: nodeserver
-          image: elquinto98/quintoapp:latest
+          image: myregistryrepo.azurecr.io/quintoapp:latest
+          imagePullPolicy: Always
           resources:
             limits:
               memory: "128Mi"
