@@ -33,8 +33,6 @@ pipeline {
           withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://myregistryrepo.azurecr.io']) {            
             app.pull()
             sh "ls"
-            sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-            sh 'chmod u+x ./kubectl'
             //sh './kubectl create -f ./deploy/deployment-service.yml'
             sh './kubectl version'
             sh './kubectl get pods'
