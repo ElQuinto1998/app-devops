@@ -34,7 +34,7 @@ pipeline {
             app.pull()
             sh "ls"
             //sh './kubectl create -f ./deploy/deployment-service.yml'
-            sh './kubectl version'
+            sh 'kubectl version --short --client'
             sh './kubectl get pods'
           }
         }
